@@ -5,6 +5,7 @@ body{
     background-color: rgb(87, 111, 247);   
     font-family: Poppins;
     overflow: hidden;
+    overflow-y: scroll;
 }
 .container{
  display: flex;
