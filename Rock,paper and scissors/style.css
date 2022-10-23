@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); 
+body{
+    overflow: auto;
+    box-sizing: border-box;
+    background-color: rgb(87, 111, 247);   
+    font-family: Poppins;
+    overflow: hidden;
+}
+.container{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+
+}
+.wrapper{
+    background-color: #fff;
+    width: 60%;
+    height: 600px;
+    margin: 20vh auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+i{
+    font-size: 7rem;
+    display: inline-block;
+    padding: 0px 100px;
+    color:rgb(13, 21, 73); 
+    margin-top: 50px;
+}
+i:hover{
+    transform: scale(1.10);
+}
+.text{
+    position: absolute;
+    top: 50px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    width: 90%;
+    text-align: center;
+    gap: 10rem;
+    font-size: 0.8rem; 
+}
+.text h1{
+   background-color:  rgb(58, 81, 213); 
+  
+}
+.text h2{
+    background-color:rgb(13, 21, 73); 
+   
+}
+.text h1, .text h2{
+    color: rgb(246, 240, 240);
+   padding: 5px;
+   border-radius: 10px;
+}
+ h2{
+    text-align: center;
+    padding: 20px;
+    margin: 20px;
+}
+.result-container{
+    background-color: #fff;
+    width: 250px;
+    height: 250px;
+    position: fixed;
+    z-index: 1;
+    padding: 20px;
+    text-align: center;
+    display: none;
+    
+}
+.result-content{
+    text-align: center;
+}
+.result-container i{
+    margin: 0 auto;
+    padding: 10px 0;
+}
+.result-content h1{
+    color: green;
+}
