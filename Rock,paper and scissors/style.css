@@ -4,8 +4,7 @@ body{
     box-sizing: border-box;
     background-color: rgb(87, 111, 247);   
     font-family: Poppins;
-    overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .container{
  display: flex;
@@ -23,7 +22,21 @@ body{
     justify-content: center;
     position: relative;
 }
-
+button{
+    display: block;
+    margin: auto;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    background-color:  rgb(58, 81, 213); 
+    color: #fff;
+    transform: scale(1.05);
+    border: none;
+    display: none;
+}
+button:hover{
+    transform: scale(1.10);
+}
 i{
     font-size: 7rem;
     display: inline-block;
@@ -41,12 +54,11 @@ i:hover{
     grid-template-columns: repeat(2,1fr);
     width: 90%;
     text-align: center;
-    gap: 10rem;
     font-size: 0.8rem; 
+    
 }
 .text h1{
    background-color:  rgb(58, 81, 213); 
-  
 }
 .text h2{
     background-color:rgb(13, 21, 73); 
@@ -63,15 +75,14 @@ i:hover{
     margin: 20px;
 }
 .result-container{
-    background-color: #fff;
+    background-color:  #fff;
     width: 250px;
-    height: 250px;
     position: fixed;
     z-index: 1;
-    padding: 20px;
     text-align: center;
     display: none;
-    
+    transition: ease-in-out .7s;
+   
 }
 .result-content{
     text-align: center;
@@ -79,6 +90,7 @@ i:hover{
 .result-container i{
     margin: 0 auto;
     padding: 10px 0;
+    
 }
 .result-content h1{
     color: green;
