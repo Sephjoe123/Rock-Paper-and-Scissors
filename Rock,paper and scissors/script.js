@@ -6,19 +6,17 @@ let BgChange = document.querySelectorAll(".wrapper")[0]
 let playerScore = document.querySelectorAll(".playerScore")[0]
 let computerScore = document.querySelectorAll(".computerScore")[0]
 let restart = document.getElementById("restart");
-let logoChange = document.getElementById("logo-choice")
-let checkIcon = document.getElementById("checkLogo")
-
+let logoChange = document.getElementById("logo-choice");
+let checkIcon = document.getElementById("checkLogo");
 
 let playerBoard  = 0;
 let computerBoard = 0;
-
 
 function playGame(e){
 let playerChoice = e.target.id;
 let computer = computerChoice()
 let winner = getWinner(playerChoice,computer);
- displayWinner(winner,computer)
+displayWinner(winner,computer);
 displayScore(winner,playerScore,computerScore)
 restart.style.display = "block";
 
@@ -63,9 +61,7 @@ else if(playerChoice === "paper" && computerChoice === "scissors"){
 else if(playerChoice === "scissors" && computerChoice === "rock"){
     return "Computer win"
 }
-
 }
-
 
  function displayWinner(w,computer){
     showWinner.style.display = "block"
@@ -76,11 +72,11 @@ else if(playerChoice === "scissors" && computerChoice === "rock"){
         return showWinner.innerHTML = `
         <h1 style = "color: green" >You Win</h1>
         <i  class= "fa-solid fa-hand-${computer} "></i>
-       <h4>  Computer Chose <strong>${computer}</strong> 
-       
+       <h4>  Computer Chose <strong>${computer}</strong>  
         ` 
     }
-else if(w === "Computer win"){
+
+  else if(w === "Computer win"){
     return showWinner.innerHTML = `
     <h1 style = "color: red">You lose</h1>
     <i  class= "fa-solid fa-hand-${computer} "></i>
@@ -118,9 +114,9 @@ restart.addEventListener("click",restartGame)
 function restartGame(){
 playerScore.innerHTML = playerBoard = 0
 computerScore.innerHTML = computerBoard = 0
-restart.style.display = "none";
 showWinner.style.display = "none";
-revertBackground()
+restart.style.display = "none";
+BgChange.style.backgroundColor = "white"
 }
 
 function removeBoard(){
