@@ -1,136 +1,159 @@
+'use strict'
+
 let rock = document.getElementById("rock")
 let paper = document.getElementById("paper")
-let scissors = document.getElementById("scissors")
-let showWinner = document.getElementsByClassName("result-container")[0]
-let BgChange = document.querySelectorAll(".wrapper")[0]
-let playerScore = document.querySelectorAll(".playerScore")[0]
-let computerScore = document.querySelectorAll(".computerScore")[0]
-let restart = document.getElementById("restart");
-let logoChange = document.getElementById("logo-choice");
-let checkIcon = document.getElementById("checkLogo");
+let scissors = document.getElementById("scissors");
+let restartBtn = document.getElementById("restart");
+let playerOption = document.getElementById("item-container");
+let playerScore = document.querySelector(".playerScore")
+let computerScore = document.querySelector(".computerScore")
+let resultContainer = document.querySelector(".result-container");
+let wrapper = document.querySelector(".wrapper")
+let winnerIndicator = document.querySelector(".winner-indicator");
+let computerChoiceLogo = document.querySelector(".computerChoiceIcon")
 
-let playerBoard  = 0;
-let computerBoard = 0;
 
-function playGame(e){
-let playerChoice = e.target.id;
-let computer = computerChoice()
-let winner = getWinner(playerChoice,computer);
-displayWinner(winner,computer);
-displayScore(winner,playerScore,computerScore)
-restart.style.display = "block";
+let isFunctionRunning = false;
 
-}
+let currentPlayerScore = 0;
+let currentComputerScore = 0;
 
-rock.addEventListener("click",playGame)
-paper.addEventListener("click",playGame)
-scissors.addEventListener("click",playGame)
+function playGame(e) {
+  if(isFunctionRunning === true){
+    return;
+  }
 
-function computerChoice(){
-let randomSelection = Math.random();
-if(randomSelection < 0.333 ){
- return "rock";
-}
- else if( randomSelection < 0.66){
-    return "paper"
- }
- else{
-    return "scissors"
- }
-}
 
-function getWinner(playerChoice,computerChoice){
-if(playerChoice === computerChoice){
-  return "It is a draw"
-}
-else if(playerChoice === "rock" && computerChoice === "scissors"){
-    return "Player win"
-}
-else if(playerChoice === "paper" && computerChoice === "rock"){
-    return"Player win"
-}
-else if(playerChoice === "scissors" && computerChoice === "paper"){
-    return"Player win"
-}
-else if(playerChoice === "rock" && computerChoice === "paper"){
-    return "Computer win"
-}
-else if(playerChoice === "paper" && computerChoice === "scissors"){
-    return "Computer win"
-}
-else if(playerChoice === "scissors" && computerChoice === "rock"){
-    return "Computer win"
-}
-}
+  let playerChoice = e.target.id;
+  let computerChoice = getComputerChoice()
+  let result = checkForWinner(playerChoice,computerChoice)
 
- function displayWinner(w,computer){
-    showWinner.style.display = "block"
-    showWinner.style.transition = "all ease-in-out 5s"
-    BgChange.style.backgroundColor = "rgb(218, 218, 218)"
+  showWinner(result)
+  wrapper.style.backgroundColor = "rgb(230, 226, 226)";
+  let displayIcon =  displayComputerChoiceIcon(computerChoice)
+
+  resultContainer.style.display = "block";
+  resultContainer.style.margin = "300px"
+  removeScoreModal()
   
-    if(w === "Player win"){
-        return showWinner.innerHTML = `
-        <h1 style = "color: green" >You Win</h1>
-        <i  class= "fa-solid fa-hand-${computer} "></i>
-       <h4>  Computer Chose <strong>${computer}</strong>  
-        ` 
-    }
+  restartBtn.style.display = "block"
+  
+}
 
-  else if(w === "Computer win"){
-    return showWinner.innerHTML = `
-    <h1 style = "color: red">You lose</h1>
-    <i  class= "fa-solid fa-hand-${computer} "></i>
-   <h4> Computer Chose  <strong>${computer}</strong> 
-   
-  `
-}
-else if (w === "It is a draw"){
-    return showWinner.innerHTML = `
-    <h1 style = "color: gray">It's a draw</h1>
-    <i  class= "fa-solid fa-hand-${computer} "></i>
-   <h4>  Computer Chose  <strong>${computer}</strong>
-   
-  `
-}
-else {
-    return ""
-}
- }
 
-function displayScore(w,p,c){
-if(w === "Player win"){
-    p.innerHTML = ++playerBoard
+let options = [rock, paper, scissors];
+
+for (let i = 0; i < options.length; i++) {
+  options[i].addEventListener("click",playGame);
 }
-else if(w === "Computer win"){
-    c.innerHTML = ++computerBoard
+
+
+function getComputerChoice(){   
+let number = Math.random()
+
+if(number < 0.333){
+ return "rock"
+}
+else if(number < 0.666){
+     return "paper"
 }
 else{
-    return ""
+     return "scissors"
+}
+
+}
+
+function checkForWinner(Player,Computer){
+
+if(Player === Computer){
+  return "It is a tie"
+}
+
+else if(Player === "rock" && Computer === "scissors"){
+  return "Player wins"
+}
+else if(Player === "paper" && Computer === "rock"){
+  return "Player wins"
+}
+else if(Player === "scissors" && Computer === "paper"){
+  return "Player wins"
+}
+else if(Player === "rock" && Computer === "paper"){
+  return "Computer wins"
+}
+else if(Player === "paper" && Computer === "scissors"){
+  return "Computer wins"
+}
+else if(Player === "scissors" && Computer === "rock"){
+  return "Computer wins"
+}
+
+}
+
+function showWinner(result){
+
+if(result === "Player wins"){
+ ++currentPlayerScore
+ playerScore.innerText = currentPlayerScore;
+ winnerIndicator.innerText = result;
+
+}
+
+else if(result === "Computer wins"){
+++currentComputerScore
+computerScore.innerText = currentComputerScore;
+winnerIndicator.innerText = result;
+}
+else{
+     winnerIndicator.innerText = "It is a tie"
 }
 }
 
-restart.addEventListener("click",restartGame)
 
-function restartGame(){
-playerScore.innerHTML = playerBoard = 0
-computerScore.innerHTML = computerBoard = 0
-showWinner.style.display = "none";
-restart.style.display = "none";
-BgChange.style.backgroundColor = "white"
+  function displayComputerChoiceIcon(computerChoice){
+
+    if(computerChoice === "rock"){
+      computerChoice = "back-fist"
+    }
+    computerChoiceLogo.innerHTML = `
+    <i class="fa-solid fa-hand-${computerChoice} " id = "rock"></i>
+    `
+
+  }
+
+function removeScoreModal(){
+
+  isFunctionRunning = true;
+  setTimeout(()=>{
+    
+    if (document.contains(resultContainer)){
+      resultContainer.style.display = "none";
+      wrapper.style.backgroundColor = "#fff";
+    }
+  isFunctionRunning = false;
+  }, 2000) 
+
 }
 
-function removeBoard(){
-     showWinner.style.display = "none"
-     
-}
+// removeScoreModal(playGame);
 
-showWinner.addEventListener("click",removePopup)
+restartBtn.addEventListener("click",()=>{
 
-function removePopup(e){
-   BgChange.style.backgroundColor = "white"
-   if(e.target = showWinner){
-    showWinner.style.display = "none"
-   }
- 
-}
+  if(isFunctionRunning){
+    return ;
+  }
+  if(currentComputerScore !== 0 || currentPlayerScore !== 0){
+     currentComputerScore = 0;
+     currentPlayerScore = 0;
+
+     playerScore.innerText = currentPlayerScore;
+     computerScore.innerText = currentComputerScore
+     resultContainer.style.display = "none";
+
+     wrapper.style.backgroundColor = "#fff";
+     wrapper.style.backgroundColor = "#fff";
+     restartBtn.style.display = "none"
+  }
+  
+})
 
